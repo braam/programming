@@ -7,3 +7,11 @@ This is an quick and really dirty node js script for playing an WAV file over FM
 
 ##### · webupdate_BKM
 This is an pretty dirty bash shell script for downloading the latest Openscape Business software versions from the company webserver. It uses an already file exists check.
+
+
+##### · dragonsubs
+Simple script written in python to download subtitles in different languages for movies or tv shows using www.dragonsubtitles.com, see the script-comments to know the syntax.
+
+
+##### · getURL
+Fetch a webpage or file from windows commandline, with batchscript and JScript. Credits to the original author.
