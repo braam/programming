@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 URL="https://webupdate.bkm.be/Hotfix"
-USER="bhav@hexacom.be"
+USER="user"
 LIST="osbiz_names.txt"
 
 #Change working directory
