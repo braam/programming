@@ -1,0 +1,58 @@
+# Command-line sensors
+- platform: command_line
+  name: pv_bankveld_realtime
+  scan_interval: 300
+  json_attributes:
+    - activePower
+    - electricalLoad
+    - onGrid
+    - yearEnergy
+    - monthEnergy
+    - dayEnergy
+    - totalEnergy
+  command: python3 /config/python_scripts/get_pv_data.py
+  
+- platform: template
+  sensors:
+    pv_bankveld_lifetime:
+      friendly_name: 'Energie totaal'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["totalEnergy"]|float |round(2) }}'
+      unit_of_measurement: "kWh"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_year:
+      friendly_name: 'Energie dit jaar'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["yearEnergy"]|float |round(2) }}'
+      unit_of_measurement: "kWh"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_month:
+      friendly_name: 'Energie deze maand'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["monthEnergy"]|float |round(2) }}'
+      unit_of_measurement: "kWh"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_today:
+      friendly_name: 'Energie vandaag'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["dayEnergy"]|float |round(2) }}'
+      unit_of_measurement: "kWh"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_now:
+      friendly_name: 'Zonnestroom opwekking'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["activePower"]|float |round(2) }}'
+      unit_of_measurement: "kW"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_eigenverbruik:
+      friendly_name: 'Eigen verbruik'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["electricalLoad"]|float |round(2) }}'
+      unit_of_measurement: "kW"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
+    pv_bankveld_netaansluiting:
+      friendly_name: 'Net aansluiting'
+      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["onGrid"]|float |round(2) }}'
+      unit_of_measurement: "kW"
+      device_class: power
+      icon_template: 'mdi:solar-panel'
