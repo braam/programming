@@ -15,3 +15,7 @@ Simple script written in python to download subtitles in different languages for
 
 ##### · getURL
 Fetch a webpage or file from windows commandline, with batchscript and JScript. Credits to the original author.
+
+
+##### · Huawei_Solar
+Fetch PV data from Huawei FusionSolar webportal and integrate this into Home Assistant.
