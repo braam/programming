@@ -1,0 +1,20 @@
+cards:
+  - type: custom:mini-graph-card
+    entities:
+      - entity: sensor.pv_bankveld_now
+        color: green
+      - entity: sensor.pv_bankveld_eigenverbruik
+        color: var(--secondary-text-color)
+      - entity: sensor.pv_bankveld_netaansluiting
+        color: var(--switch-checked-color)
+  - entities:
+      - sensor.pv_bankveld_now
+      - sensor.pv_bankveld_eigenverbruik
+      - sensor.pv_bankveld_netaansluiting
+      - sensor.pv_bankveld_today
+      - sensor.pv_bankveld_month
+      - sensor.pv_bankveld_year
+      - sensor.pv_bankveld_lifetime
+    type: entities
+title: Zonnepanelen
+type: custom:vertical-stack-in-card
