@@ -14,8 +14,8 @@ import requests, json, ephem, time
 
 #>> Global variables
 home        = ephem.Observer()  
-home.lat    = '51.053700'           # str() Latitude
-home.lon    = '4.106640'            # str() Longitude
+home.lat    = 'xx.x'           # str() Latitude
+home.lon    = 'x.x'            # str() Longitude
 next_sunrise    = home.next_rising(ephem.Sun()).datetime()
 next_sunset     = home.next_setting(ephem.Sun()).datetime()
 
