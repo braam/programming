@@ -8,6 +8,7 @@ cards:
       - entity: sensor.pv_bankveld_netaansluiting
         color: var(--switch-checked-color)
     points_per_hour: 8
+    line_width: 2
   - entities:
       - sensor.pv_bankveld_now
       - sensor.pv_bankveld_eigenverbruik
