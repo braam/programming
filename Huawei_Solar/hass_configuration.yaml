@@ -51,8 +51,8 @@
       device_class: power
       icon_template: 'mdi:solar-panel'
     pv_bankveld_netaansluiting:
-      friendly_name: 'Net aansluiting'
-      value_template: '{{ states.sensor.pv_bankveld_realtime.attributes["onGrid"]|float |round(2) }}'
+      friendly_name: 'Net import'
+      value_template: "{{ states.sensor.pv_bankveld_realtime.attributes['onGrid']|float |round(2) if states('sensor.pv_bankveld_eigengebruik') | float - states('sensor.pv_bankveld_now') | float > 0 else 0 }}"
       unit_of_measurement: "kW"
       device_class: power
       icon_template: 'mdi:solar-panel'
