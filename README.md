@@ -19,3 +19,7 @@ Fetch a webpage or file from windows commandline, with batchscript and JScript. 
 
 ##### · Huawei_Solar
 Fetch PV data from Huawei FusionSolar webportal and integrate this into Home Assistant.
+
+
+##### · nvchecker_config
+Backup configuration for the new version checker app.
