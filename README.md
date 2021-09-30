@@ -23,3 +23,7 @@ Fetch PV data from Huawei FusionSolar webportal and integrate this into Home Ass
 
 ##### · nvchecker_config
 Backup configuration for the new version checker app.
+
+
+##### · New Versions Checker
+Python script with using nvchecker commands and notify to Ms Teams Channel
