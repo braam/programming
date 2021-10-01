@@ -1,0 +1,108 @@
+[__config__]
+oldver = "nvchecker_old_braam.json"
+newver = "nvchecker_new_braam.json"
+
+["Google-Chrome"]
+source = "cmd"
+cmd = ''' wget -qO- https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm | head -c96 | strings | rev | awk -F"[:-]" '/emorhc/ { print $1 "-" $2 }' | rev '''
+
+["Fasttel-IP"]
+source = "regex"
+url = "https://www.fasttel.com/downloads/technisch/software-ip/wizardip_sw_latest2.txt"
+regex = "(?<=\\[).*?(?=\\])"
+
+["FusionSolar-APP"]
+source = "regex"
+url = "https://solar.huawei.com/na/appversion"
+regex = '"version":"([^"]+)"'
+
+["HomeAssistant-Supervisor"]
+source = "regex"
+url = "https://version.home-assistant.io/stable.json"
+regex = '"supervisor": "([^"]+)"'
+
+["HomeAssistant-Core"]
+source = "regex"
+url = "https://version.home-assistant.io/stable.json"
+regex = '"raspberrypi3": "([^"]+)"'
+
+["HomeAssistant-HassOS"]
+source = "regex"
+url = "https://version.home-assistant.io/stable.json"
+regex = '"rpi3": "([^"]+)"'
+
+["myPortal@Work_Win"]
+source = "cmd"
+cmd = ''' wget -qO- --no-check-certificate https://myportal.hexacom.be:8802/management/downloads/latest.yml | head -c20 | strings | grep -Po '(?<=version: )[^file]+' '''
+
+["myPortal@Work_Mac"]
+source = "cmd"
+cmd = ''' wget -qO- --no-check-certificate https://myportal.hexacom.be:8802/management/downloads/latest-mac.yml | head -c20 | strings | grep -Po '(?<=version: )[^file]+' '''
+
+["Ms-Teams_Linux"]
+source = "cmd"
+cmd = ''' wget -qO- https://packages.microsoft.com/repos/ms-teams/dists/stable/main/binary-amd64/Packages | head -c150 | strings | grep -Po '(?<=Version: )[^file]+' '''
+
+["Unify Circuit"]
+source = "regex"
+url = "https://eu.yourcircuit.com/manifest.json"
+regex = '"version": "([^"]+)"'
+
+["Firefox"]
+source = "cmd"
+cmd = ''' wget --spider -S --max-redirect 0 "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US" 2>&1 | sed -n '/Location: /{s|.*/firefox-\(.*\)\.tar.*|\1|p;q;}' ''' 
+
+["Jabra Direct_Win"]
+source = "regex"
+url = "https://knowledgebaseapi.jabra.com/v1/group/1363/software"
+regex = '"fileVersion": "([^"]+)"'
+
+["Jabra Direct_Mac"]
+source = "regex"
+url = "https://knowledgebaseapi.jabra.com/v1/group/1370/software"
+regex = '"fileVersion": "([^"]+)"'
+
+["Hipath Manager E"]
+source = "cmd"
+cmd = ''' wget -qO- "http://info.bkm.be/Unify/Software/ManagerE%20-%20Hipath%20&%20OpenScape%20Business/" | strings | grep -Po '(?<=>aek).*(?=.exe)' '''
+
+["OSBiz"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/CURRENT/ | strings | grep -Po '(?<=OSbiz ).*(?=</a>)' '''
+
+["OpenScape IP Dect"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Cordless%20IP%20V2/ | strings | grep -Po '(?<=>oscip_).*(?=.bin)' '''
+
+["OpenScape CP100"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Deskphone%20CP/CURRENT%20HFA/ | strings | grep -Po '(?<=>CP100_).*(?=.img)' '''
+
+["OpenScape CP20X"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Deskphone%20CP/CURRENT%20HFA/ | strings | grep -Po '(?<=>CP20X_).*(?=.img)' '''
+
+["OpenScape CP400"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Deskphone%20CP/CURRENT%20HFA/ | strings | grep -Po '(?<=>CP_400_).*(?=.img)' '''
+
+["OpenScape CP600_E"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Deskphone%20CP/CURRENT%20HFA/ | strings | grep -Po '(?<=>CP_600_E_).*(?=.img)' '''
+
+["OpenScape CP700"]
+source = "cmd"
+cmd = ''' wget -qO- --user <user> --password <password> https://webupdate.cloudbkm.com/OpenScape%20Deskphone%20CP/CURRENT%20HFA/ | strings | grep -Po '(?<=>CP_700_X_).*(?=.img)' '''
+
+["Orange Cloud Softphone_MAC"]
+source = "cmd"
+cmd = ''' wget -qO- http://info.bkm.be/Cloud%20Telephony/Cloud%20Software/Softphone/ | strings | tail -c300 | grep -Po '(?<=>orange_cloudtelephony_).*(?=_osx_release.dmg</A>)' '''
+
+["Orange Cloud Softphone_WIN"]
+source = "cmd"
+cmd = ''' wget -qO- http://info.bkm.be/Cloud%20Telephony/Cloud%20Software/Softphone/ | strings | tail -c100 | grep -Po '(?<=>orange_cloudtelephony_).*(?=_windows_release.exe</A>)' '''
+
+#["Plantronics Hub"]
+#source = "regex"
+#url = "https://www.poly.com/be/en/support/downloads-apps/hub-desktop"
+#regex = '"<h6 class="cmp-title__text  text-left "><a class="cmp-title__link lava " href="/be/en/support/downloads-apps/hub-desktop/release-notes">(.*?)</a></h6>"'
