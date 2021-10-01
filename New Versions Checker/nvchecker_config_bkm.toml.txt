@@ -19,6 +19,10 @@ cmd = ''' wget -qO- --no-check-certificate https://myportal.hexacom.be:8802/mana
 source = "cmd"
 cmd = ''' wget -qO- https://packages.microsoft.com/repos/ms-teams/dists/stable/main/binary-amd64/Packages | head -c150 | strings | grep -Po '(?<=Version: )[^file]+' '''
 
+["3DPARTY#Ms-Teams_Win"]
+source = "cmd"
+cmd = ''' wget --spider -S --max-redirect 2 "https://go.microsoft.com/fwlink/p/?LinkID=869426&clcid=0x409&culture=en-us&country=US&lm=deeplink&lmsrc=groupChatMarketingPageWeb&cmpid=directDownloadWin64" 2>&1 | tail -c150 | grep -Po '(?<=production-windows-x64/).*(?=/Teams_windows_x64.exe)' '''
+
 ["UNIFY#Unify Circuit"]
 source = "regex"
 url = "https://eu.yourcircuit.com/manifest.json"
