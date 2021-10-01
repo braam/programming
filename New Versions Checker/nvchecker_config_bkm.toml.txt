@@ -42,6 +42,10 @@ regex = '"fileVersion": "([^"]+)"'
 source = "cmd"
 cmd = ''' wget --spider -S --max-redirect 1 https://www.estos.com/s/dnl/Software%7CUnified%20Communications%7CProCall%20Enterprise%7CEnglisch%20%28Vereinigte%20Staaten%29%7CProCall%20Enterprise%207%20en-US 2>&1 | grep -Po '(?<=filename=ProCall_Enterprise_).*(?=_en-US.zip)' '''
 
+["3DPARTY#Estos MetaDirectory]
+source = "cmd"
+cmd = ''' wget --spider -S --max-redirect 1 https://www.estos.com/s/dnl/Software%7CKontaktdaten%20einbinden%7CMetaDirectory%7CEnglisch%20%28Vereinigte%20Staaten%29%7CMetaDirectory%205%20en 2>&1 | grep -Po '(?<=filename=estos_MetaDirectory_).*(?=_en-US.zip)' '''
+
 ["UNIFY#Hipath Manager E"]
 source = "cmd"
 cmd = ''' wget -qO- "http://info.bkm.be/Unify/Software/ManagerE%20-%20Hipath%20&%20OpenScape%20Business/" | strings | grep -Po '(?<=>aek).*(?=.exe)' '''
