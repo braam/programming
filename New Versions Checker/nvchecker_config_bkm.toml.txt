@@ -38,6 +38,10 @@ source = "regex"
 url = "https://knowledgebaseapi.jabra.com/v1/group/1370/software"
 regex = '"fileVersion": "([^"]+)"'
 
+["3DPARTY#Estos Procall Enterprise]
+source = "cmd"
+cmd = ''' wget --spider -S --max-redirect 1 https://www.estos.com/s/dnl/Software%7CUnified%20Communications%7CProCall%20Enterprise%7CEnglisch%20%28Vereinigte%20Staaten%29%7CProCall%20Enterprise%207%20en-US 2>&1 | grep -Po '(?<=filename=ProCall_Enterprise_).*(?=_en-US.zip)' '''
+
 ["UNIFY#Hipath Manager E"]
 source = "cmd"
 cmd = ''' wget -qO- "http://info.bkm.be/Unify/Software/ManagerE%20-%20Hipath%20&%20OpenScape%20Business/" | strings | grep -Po '(?<=>aek).*(?=.exe)' '''
