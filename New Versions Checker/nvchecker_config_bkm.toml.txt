@@ -23,10 +23,14 @@ cmd = ''' wget -qO- https://packages.microsoft.com/repos/ms-teams/dists/stable/m
 source = "cmd"
 cmd = ''' wget --spider -S --max-redirect 2 "https://go.microsoft.com/fwlink/p/?LinkID=869426&clcid=0x409&culture=en-us&country=US&lm=deeplink&lmsrc=groupChatMarketingPageWeb&cmpid=directDownloadWin64" 2>&1 | tail -c150 | grep -Po '(?<=production-windows-x64/).*(?=/Teams_windows_x64.exe)' '''
 
-["UNIFY#Unify Circuit"]
+["UNIFY#Unify Circuit_Desktop"]
 source = "regex"
 url = "https://eu.yourcircuit.com/manifest.json"
 regex = '"version": "([^"]+)"'
+
+["UNIFY#Unify Circuit APP_android"]
+source = "cmd"
+cmd = ''' wget -qO- https://play.google.com/store/apps/details?id=com.unify.circuit | strings | grep -Po '(?<=data:)[^file]+' | sed -n 4p | cut -d'"' -f4 '''
 
 ["3DPARTY#Jabra Direct_Win"]
 source = "regex"
@@ -86,3 +90,6 @@ cmd = ''' wget -qO- http://info.bkm.be/Cloud%20Telephony/Cloud%20Software/Softph
 source = "cmd"
 cmd = ''' wget -qO- http://info.bkm.be/Cloud%20Telephony/Cloud%20Software/Softphone/ | strings | tail -c100 | grep -Po '(?<=>orange_cloudtelephony_).*(?=_windows_release.exe</A>)' '''
 
+["TELEPO#Orange Cloud APP_Android"]
+source = "cmd"
+cmd = ''' wget -qO- https://play.google.com/store/apps/details?id=com.orange.be.cloudtelephony | strings | grep -Po '(?<=data:)[^file]+' | sed -n 4p | cut -d'"' -f4 '''
