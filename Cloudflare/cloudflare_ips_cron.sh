@@ -12,11 +12,11 @@ while [ $? -ne 0 ]; do
   wget -q --spider https://www.cloudflare.com/ips-v4 && wget -q --spider https://www.cloudflare.com/ips-v6 > /dev/null 2>&1
 done
 
-# Network is up proceed.
+# Network is up proceed, only allow http and https.
 for i in `curl https://www.cloudflare.com/ips-v4`; do /sbin/iptables -I INPUT -p tcp -m multiport --dports http,https -s $i -j ACCEPT; done
 for i in `curl https://www.cloudflare.com/ips-v6`; do /sbin/ip6tables -I INPUT -p tcp -m multiport --dports http,https -s $i -j ACCEPT; done
 
-# Block all the others.
+# Block all the others for http and https.
 # WARNING: If you get attacked and CloudFlare drops you, your site(s) will be unreachable. 
 /sbin/iptables -A INPUT -p tcp -m multiport --dports http,https -j DROP
 /sbin/ip6tables -A INPUT -p tcp -m multiport --dports http,https -j DROP
