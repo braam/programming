@@ -1,0 +1,40 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\chromeurl]
+@="Default Value"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\chromeurl\DefaultIcon]
+@="\"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe\",0"
+
+[HKEY_CLASSES_ROOT\chromeurl\shell]
+
+[HKEY_CLASSES_ROOT\chromeurl\shell\open]
+
+[HKEY_CLASSES_ROOT\chromeurl\shell\open\command]
+@="cmd /V /C set \"arg1=%1\" & set arg1=!arg1:chromeurl:=! & start chrome !arg1!"
+
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\ProtocolExecute\chromeurl]
+"WarnOnOpen"=dword:00000000
+
+
+
+
+[HKEY_CLASSES_ROOT\firefoxurl]
+@="Default Value"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\firefoxurl\DefaultIcon]
+@="\"C:\\Program Files\\Mozilla Firefox\\firefox.exe\",0"
+
+[HKEY_CLASSES_ROOT\firefoxurl\shell]
+
+[HKEY_CLASSES_ROOT\firefoxurl\shell\open]
+
+[HKEY_CLASSES_ROOT\firefoxurl\shell\open\command]
+@="cmd /V /C set \"arg1=%1\" & set arg1=!arg1:firefoxurl:=! & start firefox !arg1!"
+
+
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\ProtocolExecute\firefoxurl]
+"WarnOnOpen"=dword:00000000
