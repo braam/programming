@@ -27,3 +27,7 @@ Backup configuration for the new version checker app.
 
 ##### · New Versions Checker
 Python script with using nvchecker commands and notify to Ms Teams Channel
+
+
+##### · LLDP Switch Info
+Batch/powershell script for easyily getting switch information when doing onsite interventions.
