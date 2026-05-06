@@ -29,6 +29,30 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 :-------------------------------------- 
 
-Powershell -noprofile -executionpolicy bypass -file lldp.ps1
+:MENU
+cls
+echo ================================
+echo        LLDP SCANNER
+echo ================================
+echo.
 
-pause
+REM Run PowerShell script
+powershell -noprofile -executionpolicy bypass -file lldp.ps1
+
+echo.
+echo ================================
+echo   1. New scan
+echo   2. Quit
+echo ================================
+echo.
+
+choice /c 12 /n /m "Choose (1 of 2): "
+
+if errorlevel 2 goto END
+if errorlevel 1 goto MENU
+
+:END
+echo.
+echo Quiting script...
+timeout /t 2 >nul
+exit
