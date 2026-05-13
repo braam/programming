@@ -30,4 +30,8 @@ Python script with using nvchecker commands and notify to Ms Teams Channel
 
 
 ##### · LLDP Switch Info
-Batch/powershell script for easyily getting switch information when doing onsite interventions.
+Batch/powershell script for easily getting switch information when doing onsite interventions.
+
+
+##### · OneDrive Backup Sync
+Batch script for easily backuping up OneDrive files towards my QNAP Nas using Qsync. Both OneDrive and Qsync are running on my laptop. Using QNAP Hybrid Backup is not possible as this app has been blocked in Microsoft Tenant by IT Admin.
