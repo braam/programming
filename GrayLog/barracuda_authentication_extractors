@@ -1,0 +1,74 @@
+//Using split way faster then regex.
+
+rule "parse_barracuda_auth_access"
+when
+    has_field("message") &&
+    contains(to_string($message.message), "/box_Auth_access:")
+then
+
+    let msg = to_string($message.message);
+
+    //
+    // syslog_type
+    //
+    set_field("syslog_type", "box_Auth_access");
+
+    //
+    // event_type
+    //
+    let event_split = split(value: msg, pattern: "\\+\\d{2}:\\d{2} ");
+
+    let after_time = to_string(event_split[1]);
+
+    let event_parts = split(value: after_time, pattern: " ");
+
+    set_field("event_type", event_parts[0]);
+
+    //
+    // LOGIN ATTEMPT parsing
+    //
+    let auth_split = split(value: msg, pattern: "LOGIN ATTEMPT: ");
+
+    let auth_part = to_string(auth_split[1]);
+
+    set_field("auth_event", "LOGIN ATTEMPT");
+
+    //
+    // auth_initiator
+    //
+    let initiator_split = split(value: auth_part, pattern: "\\[");
+
+    set_field("auth_initiator", initiator_split[0]);
+
+    //
+    // auth_user
+    //
+    let login_split = split(value: auth_part, pattern: "Login ");
+
+    let after_login = to_string(login_split[1]);
+
+    let user_split = split(value: after_login, pattern: " from ");
+
+    set_field("auth_user", user_split[0]);
+
+    //
+    // auth_src_ip
+    //
+    let ip_split = split(value: to_string(user_split[1]), pattern: " : ");
+
+    set_field("auth_src_ip", ip_split[0]);
+
+    //
+    // action + reason
+    //
+    let action_split = split(value: to_string(ip_split[1]), pattern: ": ");
+
+    set_field("auth_action", replace(to_string(action_split[0]), ".", ""));
+
+    //
+    // auth_reason
+    //
+    set_field("auth_reason", ""); // leeg aanmaken, indien geen reden dan zal deze leeg blijven.
+    set_field("auth_reason", action_split[1]);
+
+end
