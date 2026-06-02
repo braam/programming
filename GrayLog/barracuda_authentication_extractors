@@ -1,4 +1,4 @@
-//Using split way faster then regex.
+// Using split is way fast then using regex.
 
 rule "parse_barracuda_auth_access"
 when
