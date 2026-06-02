@@ -1,0 +1,56 @@
+// Using split is way fast then using regex.
+
+rule "parse_barracuda_firewall_activity"
+when
+    has_field("message") &&
+    contains(to_string($message.message), "/box_Firewall_Activity:")
+then
+
+    //
+    // CSV mapping using seperator |
+    //
+
+    let csv_map = csv_to_map(
+        value: to_string($message.message),
+        fieldNames: "fw_type|fw_proto|fw_src_if|fw_src_ip|fw_src_port|fw_src_mac|fw_dst_ip|fw_dst_port|fw_dst_service|fw_dst_if|fw_rule|fw_info|fw_src_nat|fw_dst_nat|fw_duration|fw_count|fw_received_bytes|fw_sent_bytes|fw_received_packets|fw_sent_packets|fw_user|fw_protocol|fw_application|fw_target|fw_content|fw_urlcat",
+        separator: "|"
+    );
+
+    set_fields(csv_map);
+
+    //
+    // Get extra fields from fw_type key.
+    //
+    let msg = to_string($message.fw_type);
+    
+    let header_parts = split(value: msg, pattern: " ");
+
+    //
+    // syslog_type = tussen / en :, daarna : weglaten
+    //
+    let syslog_part = split(value: to_string(header_parts[1]), pattern: "/");
+    set_field("syslog_type", replace(to_string(syslog_part[1]), ":", ""));
+
+    //
+    // event_type = altijd 4e token
+    //
+    let event_type = to_string(header_parts[3]);
+    set_field("event_type", event_type);
+    
+    //
+    // fw_action and fw_type --> using split.
+    //
+    // 1) split op event_type (Info / Security)
+    let after_event = split(value: msg, pattern: event_type)[1];
+    // 2) split op alls achter source, want we hebben variable spaces nu achter event
+    let after_event_after_source = split(value: to_string(after_event), pattern: to_string($message.source))[1];
+    let testing = to_string(after_event_after_source);
+    // 3) split laatste deel nogmaals, dus splitsen op :
+    let right = replace(to_string(after_event_after_source), ":", "");
+    // 4) split parts
+    let parts_right = split(value: to_string(right), pattern: " ");
+
+    set_field("fw_action", parts_right[1]);
+    set_field("fw_type", parts_right[2]);
+
+end
