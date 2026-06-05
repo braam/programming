@@ -1,0 +1,40 @@
+rule "parse_barracuda_ssh_denied"
+when
+  has_field("message") &&
+  contains(to_string($message.message), "/box_SSH_sshd-session:") &&
+  contains(to_string($message.message), "Denied:")
+then
+
+  let msg = to_string($message.message);
+
+  set_field("syslog_type", "box_SSH_sshd-session");
+
+  let event_split = split(value: msg, pattern: "\\+\\d{2}:\\d{2} ");
+  let after_time = to_string(event_split[1]);
+  let event_parts = split(value: after_time, pattern: " ");
+
+  set_field("event_type", event_parts[0]);
+
+  set_field("auth_event", "LOGIN ATTEMPT");
+  set_field("auth_initiator", "sshd");
+
+  let login_split = split(value: msg, pattern: "Login ");
+  let after_login = to_string(login_split[1]);
+
+  let user_split = split(value: after_login, pattern: " from ");
+
+  set_field("auth_user", user_split[0]);
+
+  let ip_split = split(value: to_string(user_split[1]), pattern: ": ");
+
+  set_field("auth_src_ip", ip_split[0]);
+
+  set_field("auth_action", "Denied");
+  
+  set_field("auth_reason", ip_split[2]);
+
+  let reason_split = split(value: to_string(ip_split[1]), pattern: "Denied: ");
+
+  set_field("auth_reason", reason_split[1]);
+
+end
