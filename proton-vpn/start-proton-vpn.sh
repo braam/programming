@@ -27,7 +27,7 @@ fi
 LINE1="# Keep Tailscale accessible in combo with proton vpn"
 LINE2="PostUp = ip route add 100.64.0.0/10 dev tailscale0 2>/dev/null || true"
 LINE3="PostDown = ip route del 100.64.0.0/10 dev tailscale0 2>/dev/null || true"
-LINE4="# 2. Manual DNS settings (bypass resolvconf error)"
+LINE4="# Manual DNS settings (bypass resolvconf error)"
 LINE5="PostUp = echo 'nameserver 10.2.0.1' >> /etc/resolv.conf"
 LINE6="PostDown = sed -i '/nameserver 10.2.0.1/d' /etc/resolv.conf"
 
